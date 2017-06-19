@@ -16,6 +16,7 @@ class CGMainViewController: UIViewController, ChartViewDelegate {
     @IBOutlet weak var pieChartView: PieChartView!
     
     var months: [String]!
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,6 +43,9 @@ class CGMainViewController: UIViewController, ChartViewDelegate {
     }
     
     func setChart(dataPoints: [String], values: [Double]) {
+        
+        makePostCallToCEX()
+        
         
         barChartView.noDataText = "You need to provide data for the chart."
         
@@ -98,6 +102,32 @@ class CGMainViewController: UIViewController, ChartViewDelegate {
         setColorToAxis()
     }
     
+    
+    func makePostCallToCEX() {
+    
+        var request = URLRequest(url: URL(string: "https://cex.io/api/price_stats/BTC/USD")!)
+        request.httpMethod = "POST"
+        
+        let postString = "id=13&name=Jack"
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.httpBody = postString.data(using: .utf8)
+        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+            guard let data = data, error == nil else {                                                 // check for fundamental networking error
+                print("error=\(error)")
+                return
+            }
+            
+            if let httpStatus = response as? HTTPURLResponse, httpStatus.statusCode != 200 {           // check for http errors
+                print("statusCode should be 200, but is \(httpStatus.statusCode)")
+                print("response = \(response)")
+            }
+            
+            let responseString = String(data: data, encoding: .utf8)
+            print("responseString = \(responseString)")
+        }
+        task.resume()
+    
+    }
     func setColorToAxis() {
         barChartView.rightAxis.axisLineColor    = UIColor.orange
         barChartView.rightAxis.labelTextColor   = UIColor.red
