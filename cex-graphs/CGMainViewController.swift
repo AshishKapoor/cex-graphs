@@ -12,6 +12,9 @@ import Charts
 class CGMainViewController: UIViewController, ChartViewDelegate {
    
     @IBOutlet weak var barChartView: BarChartView!
+    @IBOutlet weak var lineChartView: LineChartView!
+    @IBOutlet weak var pieChartView: PieChartView!
+    
     var months: [String]!
 
     override func viewDidLoad() {
@@ -53,6 +56,30 @@ class CGMainViewController: UIViewController, ChartViewDelegate {
         chartDataSet.colors = [UIColor(red: 230/255, green: 126/255, blue: 34/255, alpha: 1)]
 //        chartDataSet.colors = ChartColorTemplates.liberty()
 
+        
+        let pieChartDataSet = PieChartDataSet(values: dataEntries, label: "Units Sold")
+        let pieChartData = PieChartData(dataSet: pieChartDataSet)
+        
+        pieChartView.data = pieChartData
+        
+        var colors: [UIColor] = []
+        
+        for _ in 0..<dataPoints.count {
+            let red = Double(arc4random_uniform(256))
+            let green = Double(arc4random_uniform(256))
+            let blue = Double(arc4random_uniform(256))
+
+            let color = UIColor(red: CGFloat(red/255), green: CGFloat(green/255), blue: CGFloat(blue/255), alpha: 1)
+            colors.append(color)
+        }
+        
+        pieChartDataSet.colors = colors
+
+        let lineChartDataSet = LineChartDataSet(values: dataEntries, label: "Units Sold")
+        let lineChartData = LineChartData(dataSet: lineChartDataSet)
+        lineChartView.data = lineChartData
+        
+        
         let chartData = BarChartData(dataSet: chartDataSet)
         
         barChartView.data = chartData
@@ -72,10 +99,10 @@ class CGMainViewController: UIViewController, ChartViewDelegate {
     }
     
     func setColorToAxis() {
-        barChartView.rightAxis.axisLineColor = UIColor.orange
-        barChartView.rightAxis.labelTextColor = UIColor.red
-        barChartView.leftAxis.labelTextColor = UIColor.red
-        barChartView.xAxis.labelTextColor = UIColor.red
+        barChartView.rightAxis.axisLineColor    = UIColor.orange
+        barChartView.rightAxis.labelTextColor   = UIColor.red
+        barChartView.leftAxis.labelTextColor    = UIColor.red
+        barChartView.xAxis.labelTextColor       = UIColor.red
     }
     
     func chartValueSelected(_ chartView: ChartViewBase, entry: ChartDataEntry, highlight: Highlight) {
