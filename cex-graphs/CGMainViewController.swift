@@ -20,20 +20,19 @@ class CGMainViewController: UIViewController, ChartViewDelegate {
         
         barChartView.delegate = self
         
+        // DataGenerator
+        months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun"]
+        let unitsSold = [20.0, 4.0, 6.0, 3.0, 12.0, 16.0]
         
-        
-        months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
-        
-        addXValues ()
-        
-        let unitsSold = [20.0, 4.0, 6.0, 3.0, 12.0, 16.0, 4.0, 18.0, 2.0, 4.0, 5.0, 4.0]
+        addXValuesToBarChartView()
         
         setChart(dataPoints: months, values: unitsSold)
         
     }
     
-    func addXValues() {
+    func addXValuesToBarChartView() {
         barChartView.xAxis.labelCount = months.count
+        barChartView.xAxis.labelTextColor = UIColor.black
         barChartView.xAxis.valueFormatter = DefaultAxisValueFormatter {
             (value, axis) -> String in return self.months[Int(value)]
         }
@@ -48,36 +47,45 @@ class CGMainViewController: UIViewController, ChartViewDelegate {
         for i in 0..<dataPoints.count {
             let dataEntry = BarChartDataEntry(x: Double(i), yValues: [values[i]])
             dataEntries.append(dataEntry)
-
         }
         
         let chartDataSet = BarChartDataSet(values: dataEntries, label: "Units Sold")
-        let chartData = BarChartData(dataSet: chartDataSet)        
+        chartDataSet.colors = [UIColor(red: 230/255, green: 126/255, blue: 34/255, alpha: 1)]
+//        chartDataSet.colors = ChartColorTemplates.liberty()
+
+        let chartData = BarChartData(dataSet: chartDataSet)
         
         barChartView.data = chartData
+//        barChartView.chartDescription?.text = "Some relevant information with chart description."
+        barChartView.chartDescription?.text = ""
         
-        barChartView.chartDescription?.text = "Some relevant info"
-        
-        chartDataSet.colors = [UIColor(red: 230/255, green: 126/255, blue: 34/255, alpha: 1)]
-        
-        chartDataSet.colors = ChartColorTemplates.colorful()
-        
-        barChartView.xAxis.labelPosition = .bottom
+        barChartView.xAxis.labelPosition = .bottomInside
         
         barChartView.backgroundColor = UIColor(red: 189/255, green: 195/255, blue: 199/255, alpha: 1)
-        
         barChartView.animate(xAxisDuration: 2.0, yAxisDuration: 2.0)
-        
-        barChartView.animate(xAxisDuration: 2.0, yAxisDuration: 2.0, easingOption: .easeInBounce)
+//        barChartView.animate(xAxisDuration: 2.0, yAxisDuration: 2.0, easingOption: .easeInBounce)
         
         let limitLine = ChartLimitLine(limit: 10.0, label: "Target")
-        
         barChartView.rightAxis.addLimitLine(limitLine)
         
+        setColorToAxis()
+    }
+    
+    func setColorToAxis() {
+        barChartView.rightAxis.axisLineColor = UIColor.orange
+        barChartView.rightAxis.labelTextColor = UIColor.red
+        barChartView.leftAxis.labelTextColor = UIColor.red
+        barChartView.xAxis.labelTextColor = UIColor.red
     }
     
     func chartValueSelected(_ chartView: ChartViewBase, entry: ChartDataEntry, highlight: Highlight) {
-        print("\(entry) in \(chartView) and highlight at \(highlight)")
+        print("Entry X: \(entry.x)")
+        print("Entry Y: \(entry.y)")
+        print("Highlight X: \(highlight.x)")
+        print("Highlight Y: \(highlight.y)")
+        print("DataIndex: \(highlight.dataIndex)")
+        print("DataSetIndex: \(highlight.dataSetIndex)")
+        print("StackIndex: \(highlight.stackIndex)\n\n")
     }
     
     public func stringForValue(value: Double, axis: AxisBase?) -> String {
