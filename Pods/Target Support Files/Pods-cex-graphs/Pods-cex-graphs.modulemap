@@ -1,0 +1,6 @@
+framework module Pods_cex_graphs {
+  umbrella header "Pods-cex-graphs-umbrella.h"
+
+  export *
+  module * { export * }
+}
