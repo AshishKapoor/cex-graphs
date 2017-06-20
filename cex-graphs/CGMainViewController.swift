@@ -13,8 +13,6 @@ import Alamofire
 class CGMainViewController: UIViewController, ChartViewDelegate {
    
     @IBOutlet weak var barChartView: BarChartView!
-
-    var months: [String] = []
     
     var priceStats: CGPriceStats?
     var priceStatsPriceArray = [Double]()
@@ -49,7 +47,7 @@ class CGMainViewController: UIViewController, ChartViewDelegate {
                         self.priceStatsPriceArray.append(self.priceStats?.getPriceValue ?? 0.0)
                         self.priceStatsTimeStampArray.append(self.priceStats?.getTimeStampValue ?? "")
                         
-                        self.setChart(dataPoints: self.priceStatsTimeStampArray, values: self.priceStatsPriceArray) // TODO: - months to be removed
+                        self.setChart(dataPoints: self.priceStatsTimeStampArray, values: self.priceStatsPriceArray)
                     }
                 }
                 break
@@ -62,14 +60,14 @@ class CGMainViewController: UIViewController, ChartViewDelegate {
     }
     
     func addXValuesToBarChartView() {
-        barChartView.xAxis.labelCount = priceStatsTimeStampArray.count // TODO: - months to be removed
+        barChartView.xAxis.labelCount = priceStatsTimeStampArray.count
         barChartView.xAxis.labelTextColor = UIColor.black
         barChartView.xAxis.valueFormatter = DefaultAxisValueFormatter {
-            (value, axis) -> String in return self.priceStatsTimeStampArray[Int(value)] // TODO: - months to be removed
+            (value, axis) -> String in return self.priceStatsTimeStampArray[Int(value)]
         }
     }
     
-    func setChart(dataPoints: [String], values: [Double]) {      // TODO: - refactor this messy code.
+    func setChart(dataPoints: [String], values: [Double]) {
         
         barChartView.noDataText = "You need to provide data for the chart."
         
@@ -124,7 +122,7 @@ class CGMainViewController: UIViewController, ChartViewDelegate {
     }
     
     public func stringForValue(value: Double, axis: AxisBase?) -> String {
-        return priceStatsTimeStampArray[Int(value)] // TODO: - months to be removed
+        return priceStatsTimeStampArray[Int(value)]
     }
 
 }
