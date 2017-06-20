@@ -15,7 +15,6 @@ class CGMainViewController: UIViewController, ChartViewDelegate {
     @IBOutlet weak var barChartView: BarChartView!
     
     var priceStats: CGPriceStats?
-    var currencyLimits: CGCurrencyLimits?
 
     var priceStatsPriceArray = [Double]()
     var priceStatsTimeStampArray = [String]()
@@ -24,25 +23,26 @@ class CGMainViewController: UIViewController, ChartViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        title = "Currency Charts"
         barChartView.delegate = self
         loadData()
     }
 
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(true)
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(true)
-    }
-    
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(true)
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(true)
-    }
+//    override func viewWillAppear(_ animated: Bool) {
+//        super.viewWillAppear(true)
+//    }
+//    
+//    override func viewDidAppear(_ animated: Bool) {
+//        super.viewDidAppear(true)
+//    }
+//    
+//    override func viewDidDisappear(_ animated: Bool) {
+//        super.viewDidDisappear(true)
+//    }
+//    
+//    override func viewWillDisappear(_ animated: Bool) {
+//        super.viewWillDisappear(true)
+//    }
     
     func loadData() {
         let parameters: JSONDictionary = [priceStatsParam.lastHours.rawValue: "10", priceStatsParam.maxRespArrSize.rawValue: 6] // TODO:- Remove hardcoded values

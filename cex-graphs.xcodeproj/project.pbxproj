@@ -17,6 +17,7 @@
 		890666181EF79B7E00ABB1D4 /* cex_graphsUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 890666171EF79B7E00ABB1D4 /* cex_graphsUITests.swift */; };
 		89854F041EF9144400A3DAD1 /* CGExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89854F031EF9144400A3DAD1 /* CGExtensions.swift */; };
 		89854F081EF91B7400A3DAD1 /* CGCurrencyLimits.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89854F071EF91B7400A3DAD1 /* CGCurrencyLimits.swift */; };
+		89854F0A1EF9386900A3DAD1 /* CGCurrencyLimitsTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89854F091EF9386900A3DAD1 /* CGCurrencyLimitsTVC.swift */; };
 		89B7BB661EF8C52F00EBD148 /* CGPriceStats.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89B7BB651EF8C52F00EBD148 /* CGPriceStats.swift */; };
 		89B7BB681EF8C6B100EBD148 /* CGConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89B7BB671EF8C6B100EBD148 /* CGConstants.swift */; };
 		8CAF0B104AEAE42123E0113A /* Pods_cex_graphsTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3078873869C725D8AD44A8C9 /* Pods_cex_graphsTests.framework */; };
@@ -62,6 +63,7 @@
 		890666191EF79B7E00ABB1D4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		89854F031EF9144400A3DAD1 /* CGExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGExtensions.swift; sourceTree = "<group>"; };
 		89854F071EF91B7400A3DAD1 /* CGCurrencyLimits.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGCurrencyLimits.swift; sourceTree = "<group>"; };
+		89854F091EF9386900A3DAD1 /* CGCurrencyLimitsTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGCurrencyLimitsTVC.swift; sourceTree = "<group>"; };
 		89B7BB651EF8C52F00EBD148 /* CGPriceStats.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGPriceStats.swift; sourceTree = "<group>"; };
 		89B7BB671EF8C6B100EBD148 /* CGConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGConstants.swift; sourceTree = "<group>"; };
 		BBB75E61BE71F3C3F51BB9F8 /* Pods-cex-graphs.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-cex-graphs.debug.xcconfig"; path = "Pods/Target Support Files/Pods-cex-graphs/Pods-cex-graphs.debug.xcconfig"; sourceTree = "<group>"; };
@@ -191,6 +193,7 @@
 		89854F051EF91B4D00A3DAD1 /* Currency Limits */ = {
 			isa = PBXGroup;
 			children = (
+				89854F0B1EF9386F00A3DAD1 /* Controller */,
 				89854F061EF91B5E00A3DAD1 /* Model */,
 			);
 			name = "Currency Limits";
@@ -202,6 +205,14 @@
 				89854F071EF91B7400A3DAD1 /* CGCurrencyLimits.swift */,
 			);
 			name = Model;
+			sourceTree = "<group>";
+		};
+		89854F0B1EF9386F00A3DAD1 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				89854F091EF9386900A3DAD1 /* CGCurrencyLimitsTVC.swift */,
+			);
+			name = Controller;
 			sourceTree = "<group>";
 		};
 		F6887FD5E3D041E17A1B5DBA /* Pods */ = {
@@ -504,6 +515,7 @@
 				89B7BB661EF8C52F00EBD148 /* CGPriceStats.swift in Sources */,
 				890665FA1EF79B7E00ABB1D4 /* CGMainViewController.swift in Sources */,
 				890665F81EF79B7E00ABB1D4 /* AppDelegate.swift in Sources */,
+				89854F0A1EF9386900A3DAD1 /* CGCurrencyLimitsTVC.swift in Sources */,
 				89B7BB681EF8C6B100EBD148 /* CGConstants.swift in Sources */,
 				89854F081EF91B7400A3DAD1 /* CGCurrencyLimits.swift in Sources */,
 				89854F041EF9144400A3DAD1 /* CGExtensions.swift in Sources */,

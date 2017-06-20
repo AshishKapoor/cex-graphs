@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="k1z-cl-fU2">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -9,6 +9,103 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
+        <!--Tab Bar Controller-->
+        <scene sceneID="s81-vc-lVY">
+            <objects>
+                <tabBarController id="k1z-cl-fU2" sceneMemberID="viewController">
+                    <tabBar key="tabBar" contentMode="scaleToFill" id="I32-mI-3q7">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="49"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="v4y-kj-oBH" kind="relationship" relationship="viewControllers" id="zNV-Kr-9QV"/>
+                        <segue destination="nvB-X9-vlW" kind="relationship" relationship="viewControllers" id="L0o-gh-7hu"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="XdN-pg-gJd" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-2522" y="63"/>
+        </scene>
+        <!--Currency Charts-->
+        <scene sceneID="fvn-2U-qWc">
+            <objects>
+                <navigationController id="nvB-X9-vlW" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Currency Charts" image="icons8-combo_chart" id="HHV-o7-tNp"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="P1N-HF-6Vy">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="FsW-Ov-OOt"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="5xQ-MI-7Ec" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1668" y="463"/>
+        </scene>
+        <!--Currency LimitsTVC-->
+        <scene sceneID="3lN-Wa-4vH">
+            <objects>
+                <tableViewController storyboardIdentifier="CGCurrencyLimitsTVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="oK5-oT-tMX" customClass="CGCurrencyLimitsTVC" customModule="cex_graphs" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="FAA-S0-m3E">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="CGCurrencyLimitsCell" textLabel="LFa-LI-kgb" detailTextLabel="SFO-H8-Ldg" style="IBUITableViewCellStyleSubtitle" id="tXq-Rw-arC">
+                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="tXq-Rw-arC" id="5lD-2M-ofU">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="LFa-LI-kgb">
+                                            <rect key="frame" x="15" y="5" width="33.5" height="20.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Subtitle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="SFO-H8-Ldg">
+                                            <rect key="frame" x="15" y="25.5" width="44" height="14.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="oK5-oT-tMX" id="wzc-9m-SqY"/>
+                            <outlet property="delegate" destination="oK5-oT-tMX" id="B3p-Jd-Fl6"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="XUh-5n-61U"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ynj-ug-HTt" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-868" y="-282"/>
+        </scene>
+        <!--Currency Limit-->
+        <scene sceneID="8ZR-9Z-jbB">
+            <objects>
+                <navigationController id="v4y-kj-oBH" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Currency Limit" image="icons8-construction_worker_filled" id="Diz-Uo-9jO"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="peh-ys-ks2">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="oK5-oT-tMX" kind="relationship" relationship="rootViewController" id="Eli-tu-Tjw"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="1Uk-dq-PCI" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1668" y="-282"/>
+        </scene>
         <!--Main View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
@@ -22,25 +119,30 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tcT-Em-ItC" customClass="BarChartView" customModule="Charts">
-                                <rect key="frame" x="0.0" y="28" width="375" height="639"/>
+                                <rect key="frame" x="0.0" y="64" width="375" height="554"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="tcT-Em-ItC" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" constant="28" id="3qo-ZE-m94"/>
+                            <constraint firstItem="tcT-Em-ItC" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" constant="64" id="3qo-ZE-m94"/>
                             <constraint firstAttribute="trailing" secondItem="tcT-Em-ItC" secondAttribute="trailing" id="6tr-p7-wRw"/>
                             <constraint firstItem="tcT-Em-ItC" firstAttribute="bottom" secondItem="wfy-db-euE" secondAttribute="top" id="hh0-d6-TRy"/>
                             <constraint firstItem="tcT-Em-ItC" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="sES-kh-A8b"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="c6C-tp-Vj8"/>
                     <connections>
                         <outlet property="barChartView" destination="tcT-Em-ItC" id="Wz0-UN-hDW"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="136.80000000000001" y="138.98050974512745"/>
+            <point key="canvasLocation" x="-868" y="462.8185907046477"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="icons8-combo_chart" width="50" height="50"/>
+        <image name="icons8-construction_worker_filled" width="25" height="25"/>
+    </resources>
 </document>
