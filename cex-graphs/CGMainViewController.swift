@@ -24,7 +24,11 @@ class CGMainViewController: UIViewController, ChartViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Currency Charts"
+        
         barChartView.delegate = self
+        
+        barChartView.layerGradient()
+        
         loadData()
     }
 

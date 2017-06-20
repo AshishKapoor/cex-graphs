@@ -19,8 +19,8 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </tabBar>
                     <connections>
-                        <segue destination="v4y-kj-oBH" kind="relationship" relationship="viewControllers" id="zNV-Kr-9QV"/>
-                        <segue destination="nvB-X9-vlW" kind="relationship" relationship="viewControllers" id="L0o-gh-7hu"/>
+                        <segue destination="nvB-X9-vlW" kind="relationship" relationship="viewControllers" id="QfY-Ba-pJG"/>
+                        <segue destination="v4y-kj-oBH" kind="relationship" relationship="viewControllers" id="cV5-hD-cSt"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XdN-pg-gJd" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -142,7 +142,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="icons8-combo_chart" width="50" height="50"/>
+        <image name="icons8-combo_chart" width="25" height="25"/>
         <image name="icons8-construction_worker_filled" width="25" height="25"/>
     </resources>
 </document>

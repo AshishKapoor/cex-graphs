@@ -30,6 +30,10 @@ class CGCurrencyLimitsTVC: UITableViewController {
         // Uncomment the following line to preserve selection between presentations
          self.clearsSelectionOnViewWillAppear = false
         
+        view.layerGradient()
+        
+        tableView.tableFooterView = UIView()
+        
         loadData()
     }
     
@@ -60,14 +64,14 @@ class CGCurrencyLimitsTVC: UITableViewController {
                         if key == "data" {
                             for (_,v) in (value as? JSONDictionary)! {
                                 guard let valueJSONArray = v as? JSONArray else {return}
-                                for j in valueJSONArray {
-                                    guard let safeCurrencyLimits = j as? JSONDictionary else {return}
+                                for pairs in valueJSONArray {
+                                    guard let safeCurrencyLimits = pairs as? JSONDictionary else {return}
                                     self.currencyLimits = CGCurrencyLimits(responseData: safeCurrencyLimits)
                                     
                                     self.symbolArr.append("\(self.currencyLimits?.getSymbol1 ?? "")/\(self.currencyLimits?.getSymbol2 ?? "")")
                                     
                                     self.lotSizeArr.append("Pending: \(self.currencyLimits?.getMinLotSize ?? 0.0)/\(self.currencyLimits?.getMaxLotSize ?? 0.0)")
-//                                    self.lotSizeArr.append("\(self.currencyLimits?.getMinLotSizeS2 ?? 0.0)")
+//                                    self.lotSizeArr.append("\(self.currencyLimits?.getMinLotSizeS2 ?? 0.0)") // Unused
                                     self.pricePriceArr.append("\(self.currencyLimits?.getMinPrice ?? "")/\(self.currencyLimits?.getMaxPrice ?? "")\n\n")
                                 }
                             }
@@ -84,23 +88,15 @@ class CGCurrencyLimitsTVC: UITableViewController {
         }
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
         return 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
         return self.symbolArr.count
     }
-
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CGCurrencyLimitsCell", for: indexPath)
@@ -108,18 +104,8 @@ class CGCurrencyLimitsTVC: UITableViewController {
         
         cell.textLabel?.text        = self.symbolArr[indexPath.row]
         cell.detailTextLabel?.text  = self.lotSizeArr[indexPath.row]
-
+        
         return cell
     }
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }
