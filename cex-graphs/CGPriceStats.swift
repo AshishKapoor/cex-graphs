@@ -24,21 +24,13 @@ class CGPriceStats: NSObject {
         self._timeStamp = date
     }
     
-    var getTimeStampValue: Date {
-        set {
-            // Todo: - convert date with required format
-        } get {
-            guard let timeStamp = self._timeStamp else { return Date() }
-            return timeStamp
-        }
+    var getTimeStampValue: String {
+        guard let timeStamp = self._timeStamp else { return "" }
+        return DateFormatter.localizedString(from: timeStamp as Date, dateStyle: DateFormatter.Style.short, timeStyle: DateFormatter.Style.none)
     }
     
-    var getPriceValue: String {
-        set {
-            // Todo: - convert price with required currency logo
-        } get {
-            guard let price = self._price else { return "" }
-            return price
-        }
+    var getPriceValue: Double {
+        guard let price = self._price else { return 0.0 }
+        return (price as NSString).doubleValue
     }
 }

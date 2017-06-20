@@ -13,29 +13,26 @@ import Alamofire
 class CGMainViewController: UIViewController, ChartViewDelegate {
    
     @IBOutlet weak var barChartView: BarChartView!
-    @IBOutlet weak var lineChartView: LineChartView!
 
-    var months: [String]! // TODO: - to be removed
+    var months: [String] = []
+    
     var priceStats: CGPriceStats?
+    var priceStatsPriceArray = [Double]()
+    var priceStatsTimeStampArray = [String]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         barChartView.delegate = self
         
-        // Temp. DataGenerator
-        months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun"] // TODO: - months to be removed.
-        let unitsSold = [20.0, 4.0, 6.0, 3.0, 12.0, 16.0] // TODO: - setup demensions to be dynamically as per the api.
-        
         addXValuesToBarChartView()
-        setChart(dataPoints: months, values: unitsSold) // TODO: - months to be removed
         loadData()
     }
     
     func loadData() {
         
         let parameters: JSONDictionary = [
-            priceStatsParam.lastHours.rawValue: "24", // TODO:- Remove hardcoded values
-            priceStatsParam.maxRespArrSize.rawValue: 100 // TODO:- Remove hardcoded values
+            priceStatsParam.lastHours.rawValue: "5", // TODO:- Remove hardcoded values
+            priceStatsParam.maxRespArrSize.rawValue: 20 // TODO:- Remove hardcoded values
         ]
         
         Alamofire.request(priceStatsURL, method: .post, parameters: parameters, encoding: JSONEncoding.default)
@@ -48,10 +45,11 @@ class CGMainViewController: UIViewController, ChartViewDelegate {
                     for responsePriceStats in responseArray {
                         guard let safePriceStats = responsePriceStats as? JSONDictionary else {return}
                         self.priceStats = (CGPriceStats(priceStatsData: safePriceStats))
-
-                        // Getting Price Stats
-                        print(self.priceStats?.getPriceValue ?? "")
-                        print(self.priceStats?.getTimeStampValue ?? Date())
+                        
+                        self.priceStatsPriceArray.append(self.priceStats?.getPriceValue ?? 0.0)
+                        self.priceStatsTimeStampArray.append(self.priceStats?.getTimeStampValue ?? "")
+                        
+                        self.setChart(dataPoints: self.priceStatsTimeStampArray, values: self.priceStatsPriceArray) // TODO: - months to be removed
                     }
                 }
                 break
@@ -64,10 +62,10 @@ class CGMainViewController: UIViewController, ChartViewDelegate {
     }
     
     func addXValuesToBarChartView() {
-        barChartView.xAxis.labelCount = months.count // TODO: - months to be removed
+        barChartView.xAxis.labelCount = priceStatsTimeStampArray.count // TODO: - months to be removed
         barChartView.xAxis.labelTextColor = UIColor.black
         barChartView.xAxis.valueFormatter = DefaultAxisValueFormatter {
-            (value, axis) -> String in return self.months[Int(value)] // TODO: - months to be removed
+            (value, axis) -> String in return self.priceStatsTimeStampArray[Int(value)] // TODO: - months to be removed
         }
     }
     
@@ -126,7 +124,7 @@ class CGMainViewController: UIViewController, ChartViewDelegate {
     }
     
     public func stringForValue(value: Double, axis: AxisBase?) -> String {
-        return months[Int(value)] // TODO: - months to be removed
+        return priceStatsTimeStampArray[Int(value)] // TODO: - months to be removed
     }
 
 }

@@ -31,4 +31,5 @@ public enum cryptocurreny: String {
 
 let cexURL = "https://cex.io/api/"
 let priceStats = "price_stats"
-let priceStatsURL = "\(cexURL)\(priceStats)/\(cryptocurreny.BTC.rawValue)/\(cryptocurreny.USD.rawValue)"
+let convertEthToUSD = "\(cryptocurreny.ETH.rawValue)/\(cryptocurreny.USD.rawValue)"
+let priceStatsURL = "\(cexURL)\(priceStats)/\(convertEthToUSD)"
