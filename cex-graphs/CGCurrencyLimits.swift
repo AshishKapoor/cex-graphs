@@ -60,7 +60,7 @@ class CGCurrencyLimits: NSObject {
     }
     
     var getMaxLotSize: Double {
-        return _maxLotSize ?? 0
+        return _maxLotSize ?? 0.0
     }
     
     var getMinPrice: String {

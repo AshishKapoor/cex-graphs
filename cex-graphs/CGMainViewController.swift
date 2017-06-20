@@ -96,6 +96,7 @@ class CGMainViewController: UIViewController, ChartViewDelegate {
         let chartDataSet = BarChartDataSet(values: dataEntries, label: "ETH - USD conversion")
 //        chartDataSet.colors = ChartColorTemplates.colorful()
         chartDataSet.colors = [UIColor.barGraphChartColor()]
+        
         setupBarView(chartDataSet: chartDataSet)
     }
     
