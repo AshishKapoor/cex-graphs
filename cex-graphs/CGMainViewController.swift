@@ -21,18 +21,14 @@ class CGMainViewController: UIViewController, ChartViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         barChartView.delegate = self
-        
-        addXValuesToBarChartView()
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
         loadData()
     }
     
     func loadData() {
-        
-        let parameters: JSONDictionary = [
-            priceStatsParam.lastHours.rawValue: "5", // TODO:- Remove hardcoded values
-            priceStatsParam.maxRespArrSize.rawValue: 20 // TODO:- Remove hardcoded values
-        ]
-        
+        let parameters: JSONDictionary = [priceStatsParam.lastHours.rawValue: "10", priceStatsParam.maxRespArrSize.rawValue: 6] // TODO:- Remove hardcoded values
         Alamofire.request(priceStatsURL, method: .post, parameters: parameters, encoding: JSONEncoding.default)
             .responseJSON { response in
             switch(response.result) {
@@ -43,9 +39,10 @@ class CGMainViewController: UIViewController, ChartViewDelegate {
                     for responsePriceStats in responseArray {
                         guard let safePriceStats = responsePriceStats as? JSONDictionary else {return}
                         self.priceStats = (CGPriceStats(priceStatsData: safePriceStats))
-                        
                         self.priceStatsPriceArray.append(self.priceStats?.getPriceValue ?? 0.0)
                         self.priceStatsTimeStampArray.append(self.priceStats?.getTimeStampValue ?? "")
+                        
+                        self.addXValuesToBarChartView(time: self.priceStatsTimeStampArray)
                         
                         self.setChart(dataPoints: self.priceStatsTimeStampArray, values: self.priceStatsPriceArray)
                     }
@@ -59,8 +56,8 @@ class CGMainViewController: UIViewController, ChartViewDelegate {
         }
     }
     
-    func addXValuesToBarChartView() {
-        barChartView.xAxis.labelCount = priceStatsTimeStampArray.count
+    func addXValuesToBarChartView(time: [String]) {
+        barChartView.xAxis.labelCount = time.count
         barChartView.xAxis.labelTextColor = UIColor.black
         barChartView.xAxis.valueFormatter = DefaultAxisValueFormatter {
             (value, axis) -> String in return self.priceStatsTimeStampArray[Int(value)]
@@ -68,47 +65,30 @@ class CGMainViewController: UIViewController, ChartViewDelegate {
     }
     
     func setChart(dataPoints: [String], values: [Double]) {
-        
         barChartView.noDataText = "You need to provide data for the chart."
-        
         var dataEntries: [BarChartDataEntry] = []
-
+        
         for i in 0..<dataPoints.count {
             let dataEntry = BarChartDataEntry(x: Double(i), yValues: [values[i]])
             dataEntries.append(dataEntry)
         }
-        
         let chartDataSet = BarChartDataSet(values: dataEntries, label: "ETH - USD conversion")
-        chartDataSet.colors = barChartColor
-//        chartDataSet.colors = ChartColorTemplates.liberty()
-        
+        chartDataSet.colors = ChartColorTemplates.colorful()
         setupBarView(chartDataSet: chartDataSet)
-        
-        setColorToAxis()
     }
     
     func setupBarView (chartDataSet: BarChartDataSet) -> Void {
+        barChartView.chartDescription?.text = "Some relevant information with chart description."
+        
         let chartData = BarChartData(dataSet: chartDataSet)
-        
         barChartView.data = chartData
-        //        barChartView.chartDescription?.text = "Some relevant information with chart description."
         barChartView.chartDescription?.text = ""
-        
         barChartView.xAxis.labelPosition = .bottomInside
-        
-        barChartView.backgroundColor = UIColor(red: 189/255, green: 195/255, blue: 199/255, alpha: 1)
+        barChartView.backgroundColor = barGraphBackColor
         barChartView.animate(xAxisDuration: 2.0, yAxisDuration: 2.0)
-        //        barChartView.animate(xAxisDuration: 2.0, yAxisDuration: 2.0, easingOption: .easeInBounce)
         
         let limitLine = ChartLimitLine(limit: 400.0, label: "Target") // TODO: - Remove hardcoded target
         barChartView.rightAxis.addLimitLine(limitLine)
-    }
-    
-    func setColorToAxis() {
-        barChartView.rightAxis.axisLineColor    = UIColor.orange
-        barChartView.rightAxis.labelTextColor   = UIColor.red
-        barChartView.leftAxis.labelTextColor    = UIColor.red
-        barChartView.xAxis.labelTextColor       = UIColor.red
     }
     
     func chartValueSelected(_ chartView: ChartViewBase, entry: ChartDataEntry, highlight: Highlight) {

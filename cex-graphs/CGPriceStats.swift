@@ -26,7 +26,7 @@ class CGPriceStats: NSObject {
     
     var getTimeStampValue: String {
         guard let timeStamp = self._timeStamp else { return "" }
-        return DateFormatter.localizedString(from: timeStamp as Date, dateStyle: DateFormatter.Style.short, timeStyle: DateFormatter.Style.none)
+        return DateFormatter.localizedString(from: timeStamp as Date, dateStyle: DateFormatter.Style.none, timeStyle: DateFormatter.Style.short)
     }
     
     var getPriceValue: Double {

@@ -13,6 +13,9 @@ import UIKit
 // Colors
 
 let barChartColor = [UIColor(red: 230/255, green: 126/255, blue: 34/255, alpha: 1)]
+let barGraphBackColor = UIColor(red: 189/255, green: 195/255, blue: 199/255, alpha: 1)
+
+//
 
 public typealias JSON = Any
 public typealias JSONDictionary = Dictionary<String, Any>
