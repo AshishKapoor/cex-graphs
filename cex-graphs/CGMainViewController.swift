@@ -15,6 +15,8 @@ class CGMainViewController: UIViewController, ChartViewDelegate {
     @IBOutlet weak var barChartView: BarChartView!
     
     var priceStats: CGPriceStats?
+    var currencyLimits: CGCurrencyLimits?
+
     var priceStatsPriceArray = [Double]()
     var priceStatsTimeStampArray = [String]()
     
@@ -44,6 +46,7 @@ class CGMainViewController: UIViewController, ChartViewDelegate {
     
     func loadData() {
         let parameters: JSONDictionary = [priceStatsParam.lastHours.rawValue: "10", priceStatsParam.maxRespArrSize.rawValue: 6] // TODO:- Remove hardcoded values
+        
         Alamofire.request(priceStatsURL, method: .post, parameters: parameters, encoding: JSONEncoding.default)
             .responseJSON { response in
             switch(response.result) {
@@ -54,6 +57,7 @@ class CGMainViewController: UIViewController, ChartViewDelegate {
                     for responsePriceStats in responseArray {
                         guard let safePriceStats = responsePriceStats as? JSONDictionary else {return}
                         self.priceStats = (CGPriceStats(priceStatsData: safePriceStats))
+                        
                         self.priceStatsPriceArray.append(self.priceStats?.getPriceValue ?? 0.0)
                         self.priceStatsTimeStampArray.append(self.priceStats?.getTimeStampValue ?? "")
                         self.addXValuesToBarChartView(time: self.priceStatsTimeStampArray)
