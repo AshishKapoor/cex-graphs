@@ -78,7 +78,7 @@ class CGMainViewController: UIViewController, ChartViewDelegate {
             dataEntries.append(dataEntry)
         }
         
-        let chartDataSet = BarChartDataSet(values: dataEntries, label: "Units Sold")
+        let chartDataSet = BarChartDataSet(values: dataEntries, label: "ETH - USD conversion")
         chartDataSet.colors = barChartColor
 //        chartDataSet.colors = ChartColorTemplates.liberty()
         
@@ -100,7 +100,7 @@ class CGMainViewController: UIViewController, ChartViewDelegate {
         barChartView.animate(xAxisDuration: 2.0, yAxisDuration: 2.0)
         //        barChartView.animate(xAxisDuration: 2.0, yAxisDuration: 2.0, easingOption: .easeInBounce)
         
-        let limitLine = ChartLimitLine(limit: 10.0, label: "Target")
+        let limitLine = ChartLimitLine(limit: 400.0, label: "Target") // TODO: - Remove hardcoded target
         barChartView.rightAxis.addLimitLine(limitLine)
     }
     
