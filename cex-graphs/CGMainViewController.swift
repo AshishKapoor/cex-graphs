@@ -18,13 +18,28 @@ class CGMainViewController: UIViewController, ChartViewDelegate {
     var priceStatsPriceArray = [Double]()
     var priceStatsTimeStampArray = [String]()
     
+    // Mark: - View lifecycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         barChartView.delegate = self
+        loadData()
     }
 
     override func viewWillAppear(_ animated: Bool) {
-        loadData()
+        super.viewWillAppear(true)
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(true)
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(true)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(true)
     }
     
     func loadData() {
@@ -41,9 +56,7 @@ class CGMainViewController: UIViewController, ChartViewDelegate {
                         self.priceStats = (CGPriceStats(priceStatsData: safePriceStats))
                         self.priceStatsPriceArray.append(self.priceStats?.getPriceValue ?? 0.0)
                         self.priceStatsTimeStampArray.append(self.priceStats?.getTimeStampValue ?? "")
-                        
                         self.addXValuesToBarChartView(time: self.priceStatsTimeStampArray)
-                        
                         self.setChart(dataPoints: self.priceStatsTimeStampArray, values: self.priceStatsPriceArray)
                     }
                 }
@@ -73,7 +86,8 @@ class CGMainViewController: UIViewController, ChartViewDelegate {
             dataEntries.append(dataEntry)
         }
         let chartDataSet = BarChartDataSet(values: dataEntries, label: "ETH - USD conversion")
-        chartDataSet.colors = ChartColorTemplates.colorful()
+//        chartDataSet.colors = ChartColorTemplates.colorful()
+        chartDataSet.colors = [UIColor.barGraphChartColor()]
         setupBarView(chartDataSet: chartDataSet)
     }
     
@@ -84,7 +98,7 @@ class CGMainViewController: UIViewController, ChartViewDelegate {
         barChartView.data = chartData
         barChartView.chartDescription?.text = ""
         barChartView.xAxis.labelPosition = .bottomInside
-        barChartView.backgroundColor = barGraphBackColor
+        barChartView.backgroundColor = UIColor.barGraphBackColor()
         barChartView.animate(xAxisDuration: 2.0, yAxisDuration: 2.0)
         
         let limitLine = ChartLimitLine(limit: 400.0, label: "Target") // TODO: - Remove hardcoded target
@@ -104,6 +118,5 @@ class CGMainViewController: UIViewController, ChartViewDelegate {
     public func stringForValue(value: Double, axis: AxisBase?) -> String {
         return priceStatsTimeStampArray[Int(value)]
     }
-
 }
 

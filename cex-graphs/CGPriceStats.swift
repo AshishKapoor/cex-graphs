@@ -16,21 +16,22 @@ class CGPriceStats: NSObject {
     init(priceStatsData: JSONDictionary) {
         super.init()
         
-        guard let parsedPrice = priceStatsData["price"] as? String else {print("Issue at parsedPrice");return}
+        guard let parsedPrice = priceStatsData["price"] as? String else {return}
         self._price     = parsedPrice
         
-        guard let parsedTimeStamp = priceStatsData["tmsp"] as? TimeInterval else {print("Issue at parsedTimeStamp"); return}
-        let date = Date(timeIntervalSince1970: parsedTimeStamp) // Converting UNIX Time Interval to Date format
+        guard let parsedTimeStamp = priceStatsData["tmsp"] as? TimeInterval else {return}
+        // Converting UNIX Time Interval to Date format
+        let date = Date(timeIntervalSince1970: parsedTimeStamp)
         self._timeStamp = date
     }
     
     var getTimeStampValue: String {
         guard let timeStamp = self._timeStamp else { return "" }
-        return DateFormatter.localizedString(from: timeStamp as Date, dateStyle: DateFormatter.Style.none, timeStyle: DateFormatter.Style.short)
+        return Date.unixTimestampToString(timeStamp: timeStamp)
     }
     
     var getPriceValue: Double {
         guard let price = self._price else { return 0.0 }
-        return (price as NSString).doubleValue
+        return Double.stringToDouble(stringValue: price)
     }
 }
