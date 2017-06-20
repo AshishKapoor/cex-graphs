@@ -7,6 +7,7 @@ target 'cex-graphs' do
 
   # Pods for cex-graphs
   pod 'Charts'
+  pod 'Alamofire', '~> 4.4'
 
   target 'cex-graphsTests' do
     inherit! :search_paths

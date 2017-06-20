@@ -8,44 +8,71 @@
 
 import UIKit
 import Charts
+import Alamofire
 
 class CGMainViewController: UIViewController, ChartViewDelegate {
    
     @IBOutlet weak var barChartView: BarChartView!
     @IBOutlet weak var lineChartView: LineChartView!
     @IBOutlet weak var pieChartView: PieChartView!
-    
-    var months: [String]!
-    
 
+    var months: [String]! // TODO: - to be removed
+    var priceStats: CGPriceStats?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
-        
         barChartView.delegate = self
         
-        // DataGenerator
-        months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun"]
-        let unitsSold = [20.0, 4.0, 6.0, 3.0, 12.0, 16.0]
+        // Temp. DataGenerator
+        months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun"] // TODO: - months to be removed.
+        let unitsSold = [20.0, 4.0, 6.0, 3.0, 12.0, 16.0] // TODO: - setup demensions to be dynamically as per the api.
         
         addXValuesToBarChartView()
-        
-        setChart(dataPoints: months, values: unitsSold)
-        
+        setChart(dataPoints: months, values: unitsSold) // TODO: - months to be removed
+        loadData()
     }
     
-    func addXValuesToBarChartView() {
-        barChartView.xAxis.labelCount = months.count
-        barChartView.xAxis.labelTextColor = UIColor.black
-        barChartView.xAxis.valueFormatter = DefaultAxisValueFormatter {
-            (value, axis) -> String in return self.months[Int(value)]
+    func loadData() {
+        
+        let parameters: JSONDictionary = [
+            priceStatsParam.lastHours.rawValue: "24",
+            priceStatsParam.maxRespArrSize.rawValue: 100
+        ]
+        
+        Alamofire.request(priceStatsURL, method: .post, parameters: parameters, encoding: JSONEncoding.default)
+            .responseJSON { response in
+            switch(response.result) {
+            case .success(_):
+                if response.result.value != nil {
+                    guard let responseData = response.result.value else {return}
+                    guard let responseArray = responseData as? JSONArray else {return}
+                    for responsePriceStats in responseArray {
+                        guard let safePriceStats = responsePriceStats as? JSONDictionary else {return}
+                        self.priceStats = (CGPriceStats(priceStatsData: safePriceStats))
+
+                        // Getting Price Stats
+                        print(self.priceStats?.getPriceValue ?? "")
+                        print(self.priceStats?.getTimeStampValue ?? Date())
+                    }
+                }
+                break
+            case .failure(_):
+                guard let error = response.result.error else {return}
+                print(error)
+                break
+            }
         }
     }
     
-    func setChart(dataPoints: [String], values: [Double]) {
-        
-        makePostCallToCEX()
-        
+    func addXValuesToBarChartView() {
+        barChartView.xAxis.labelCount = months.count // TODO: - months to be removed
+        barChartView.xAxis.labelTextColor = UIColor.black
+        barChartView.xAxis.valueFormatter = DefaultAxisValueFormatter {
+            (value, axis) -> String in return self.months[Int(value)] // TODO: - months to be removed
+        }
+    }
+    
+    func setChart(dataPoints: [String], values: [Double]) {      // TODO: - refactor this messy code.
         
         barChartView.noDataText = "You need to provide data for the chart."
         
@@ -59,12 +86,23 @@ class CGMainViewController: UIViewController, ChartViewDelegate {
         let chartDataSet = BarChartDataSet(values: dataEntries, label: "Units Sold")
         chartDataSet.colors = [UIColor(red: 230/255, green: 126/255, blue: 34/255, alpha: 1)]
 //        chartDataSet.colors = ChartColorTemplates.liberty()
-
+        setupBarView(chartDataSet: chartDataSet)
         
         let pieChartDataSet = PieChartDataSet(values: dataEntries, label: "Units Sold")
         let pieChartData = PieChartData(dataSet: pieChartDataSet)
-        
         pieChartView.data = pieChartData
+        
+        // Colorify the Pie Chart
+        setupPieChartColors(dataPoints: dataPoints,dataSet: pieChartDataSet)
+        
+        let lineChartDataSet = LineChartDataSet(values: dataEntries, label: "Units Sold")
+        let lineChartData = LineChartData(dataSet: lineChartDataSet)
+        lineChartView.data = lineChartData
+        
+        setColorToAxis()
+    }
+    
+    func setupPieChartColors(dataPoints: [String], dataSet: PieChartDataSet) -> Void {
         
         var colors: [UIColor] = []
         
@@ -76,58 +114,27 @@ class CGMainViewController: UIViewController, ChartViewDelegate {
             let color = UIColor(red: CGFloat(red/255), green: CGFloat(green/255), blue: CGFloat(blue/255), alpha: 1)
             colors.append(color)
         }
-        
-        pieChartDataSet.colors = colors
 
-        let lineChartDataSet = LineChartDataSet(values: dataEntries, label: "Units Sold")
-        let lineChartData = LineChartData(dataSet: lineChartDataSet)
-        lineChartView.data = lineChartData
-        
-        
+        dataSet.colors = colors
+    }
+    
+    func setupBarView (chartDataSet: BarChartDataSet) -> Void {
         let chartData = BarChartData(dataSet: chartDataSet)
         
         barChartView.data = chartData
-//        barChartView.chartDescription?.text = "Some relevant information with chart description."
+        //        barChartView.chartDescription?.text = "Some relevant information with chart description."
         barChartView.chartDescription?.text = ""
         
         barChartView.xAxis.labelPosition = .bottomInside
         
         barChartView.backgroundColor = UIColor(red: 189/255, green: 195/255, blue: 199/255, alpha: 1)
         barChartView.animate(xAxisDuration: 2.0, yAxisDuration: 2.0)
-//        barChartView.animate(xAxisDuration: 2.0, yAxisDuration: 2.0, easingOption: .easeInBounce)
+        //        barChartView.animate(xAxisDuration: 2.0, yAxisDuration: 2.0, easingOption: .easeInBounce)
         
         let limitLine = ChartLimitLine(limit: 10.0, label: "Target")
         barChartView.rightAxis.addLimitLine(limitLine)
-        
-        setColorToAxis()
     }
     
-    
-    func makePostCallToCEX() {
-    
-        var request = URLRequest(url: URL(string: "https://cex.io/api/price_stats/BTC/USD")!)
-        request.httpMethod = "POST"
-        
-        let postString = "id=13&name=Jack"
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.httpBody = postString.data(using: .utf8)
-        let task = URLSession.shared.dataTask(with: request) { data, response, error in
-            guard let data = data, error == nil else {                                                 // check for fundamental networking error
-                print("error=\(error)")
-                return
-            }
-            
-            if let httpStatus = response as? HTTPURLResponse, httpStatus.statusCode != 200 {           // check for http errors
-                print("statusCode should be 200, but is \(httpStatus.statusCode)")
-                print("response = \(response)")
-            }
-            
-            let responseString = String(data: data, encoding: .utf8)
-            print("responseString = \(responseString)")
-        }
-        task.resume()
-    
-    }
     func setColorToAxis() {
         barChartView.rightAxis.axisLineColor    = UIColor.orange
         barChartView.rightAxis.labelTextColor   = UIColor.red
@@ -146,15 +153,8 @@ class CGMainViewController: UIViewController, ChartViewDelegate {
     }
     
     public func stringForValue(value: Double, axis: AxisBase?) -> String {
-        
-        return months[Int(value)]
+        return months[Int(value)] // TODO: - months to be removed
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
 
 }
 

@@ -15,6 +15,8 @@
 		890666021EF79B7E00ABB1D4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 890666001EF79B7E00ABB1D4 /* LaunchScreen.storyboard */; };
 		8906660D1EF79B7E00ABB1D4 /* cex_graphsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8906660C1EF79B7E00ABB1D4 /* cex_graphsTests.swift */; };
 		890666181EF79B7E00ABB1D4 /* cex_graphsUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 890666171EF79B7E00ABB1D4 /* cex_graphsUITests.swift */; };
+		89B7BB661EF8C52F00EBD148 /* CGPriceStats.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89B7BB651EF8C52F00EBD148 /* CGPriceStats.swift */; };
+		89B7BB681EF8C6B100EBD148 /* CGConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89B7BB671EF8C6B100EBD148 /* CGConstants.swift */; };
 		8CAF0B104AEAE42123E0113A /* Pods_cex_graphsTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3078873869C725D8AD44A8C9 /* Pods_cex_graphsTests.framework */; };
 		EB50CC3F9EB229252E1F55CF /* Pods_cex_graphsUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 17EE2AC88AB5C0DA8D75F5AB /* Pods_cex_graphsUITests.framework */; };
 /* End PBXBuildFile section */
@@ -56,6 +58,8 @@
 		890666131EF79B7E00ABB1D4 /* cex-graphsUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "cex-graphsUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		890666171EF79B7E00ABB1D4 /* cex_graphsUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = cex_graphsUITests.swift; sourceTree = "<group>"; };
 		890666191EF79B7E00ABB1D4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		89B7BB651EF8C52F00EBD148 /* CGPriceStats.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGPriceStats.swift; sourceTree = "<group>"; };
+		89B7BB671EF8C6B100EBD148 /* CGConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGConstants.swift; sourceTree = "<group>"; };
 		BBB75E61BE71F3C3F51BB9F8 /* Pods-cex-graphs.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-cex-graphs.debug.xcconfig"; path = "Pods/Target Support Files/Pods-cex-graphs/Pods-cex-graphs.debug.xcconfig"; sourceTree = "<group>"; };
 		DDDB03F8607520B989238939 /* Pods-cex-graphsTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-cex-graphsTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-cex-graphsTests/Pods-cex-graphsTests.debug.xcconfig"; sourceTree = "<group>"; };
 		F4C597FA8ED4F2C6A4604DA5 /* Pods-cex-graphsUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-cex-graphsUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-cex-graphsUITests/Pods-cex-graphsUITests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -125,7 +129,8 @@
 			isa = PBXGroup;
 			children = (
 				890665F71EF79B7E00ABB1D4 /* AppDelegate.swift */,
-				890665F91EF79B7E00ABB1D4 /* CGMainViewController.swift */,
+				89B7BB671EF8C6B100EBD148 /* CGConstants.swift */,
+				897DA3461EF8E7A700BD5677 /* PriceStats */,
 				890665FB1EF79B7E00ABB1D4 /* Main.storyboard */,
 				890665FE1EF79B7E00ABB1D4 /* Assets.xcassets */,
 				890666001EF79B7E00ABB1D4 /* LaunchScreen.storyboard */,
@@ -150,6 +155,31 @@
 				890666191EF79B7E00ABB1D4 /* Info.plist */,
 			);
 			path = "cex-graphsUITests";
+			sourceTree = "<group>";
+		};
+		897DA3461EF8E7A700BD5677 /* PriceStats */ = {
+			isa = PBXGroup;
+			children = (
+				897DA3471EF8E7BE00BD5677 /* Controller */,
+				897DA3481EF8E7C900BD5677 /* Model */,
+			);
+			name = PriceStats;
+			sourceTree = "<group>";
+		};
+		897DA3471EF8E7BE00BD5677 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				890665F91EF79B7E00ABB1D4 /* CGMainViewController.swift */,
+			);
+			name = Controller;
+			sourceTree = "<group>";
+		};
+		897DA3481EF8E7C900BD5677 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				89B7BB651EF8C52F00EBD148 /* CGPriceStats.swift */,
+			);
+			name = Model;
 			sourceTree = "<group>";
 		};
 		F6887FD5E3D041E17A1B5DBA /* Pods */ = {
@@ -449,8 +479,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				89B7BB661EF8C52F00EBD148 /* CGPriceStats.swift in Sources */,
 				890665FA1EF79B7E00ABB1D4 /* CGMainViewController.swift in Sources */,
 				890665F81EF79B7E00ABB1D4 /* AppDelegate.swift in Sources */,
+				89B7BB681EF8C6B100EBD148 /* CGConstants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -709,6 +741,7 @@
 				8906661E1EF79B7E00ABB1D4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		8906661F1EF79B7E00ABB1D4 /* Build configuration list for PBXNativeTarget "cex-graphsTests" */ = {
 			isa = XCConfigurationList;
@@ -717,6 +750,7 @@
 				890666211EF79B7E00ABB1D4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		890666221EF79B7E00ABB1D4 /* Build configuration list for PBXNativeTarget "cex-graphsUITests" */ = {
 			isa = XCConfigurationList;
@@ -725,6 +759,7 @@
 				890666241EF79B7E00ABB1D4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
