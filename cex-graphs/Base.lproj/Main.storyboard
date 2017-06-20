@@ -22,38 +22,20 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tcT-Em-ItC" customClass="BarChartView" customModule="Charts">
-                                <rect key="frame" x="0.0" y="487" width="375" height="180"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Vf8-SU-Zzh" customClass="PieChartView" customModule="Charts">
-                                <rect key="frame" x="0.0" y="243" width="375" height="180"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="62J-ge-RVt" customClass="LineChartView" customModule="Charts">
-                                <rect key="frame" x="0.0" y="20" width="375" height="180"/>
+                                <rect key="frame" x="0.0" y="28" width="375" height="639"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="tcT-Em-ItC" firstAttribute="top" secondItem="Vf8-SU-Zzh" secondAttribute="bottom" constant="64" id="0R7-8d-5YX"/>
-                            <constraint firstItem="tcT-Em-ItC" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" constant="487" id="3qo-ZE-m94"/>
+                            <constraint firstItem="tcT-Em-ItC" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" constant="28" id="3qo-ZE-m94"/>
                             <constraint firstAttribute="trailing" secondItem="tcT-Em-ItC" secondAttribute="trailing" id="6tr-p7-wRw"/>
-                            <constraint firstItem="62J-ge-RVt" firstAttribute="leading" secondItem="Vf8-SU-Zzh" secondAttribute="leading" id="7Rc-yB-enf"/>
-                            <constraint firstItem="62J-ge-RVt" firstAttribute="trailing" secondItem="Vf8-SU-Zzh" secondAttribute="trailing" id="KHo-yC-Rj4"/>
-                            <constraint firstItem="Vf8-SU-Zzh" firstAttribute="leading" secondItem="tcT-Em-ItC" secondAttribute="leading" id="Ohs-iD-COB"/>
-                            <constraint firstItem="62J-ge-RVt" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="euA-He-I6K"/>
-                            <constraint firstItem="Vf8-SU-Zzh" firstAttribute="top" secondItem="62J-ge-RVt" secondAttribute="bottom" constant="43" id="gOU-37-mQa"/>
                             <constraint firstItem="tcT-Em-ItC" firstAttribute="bottom" secondItem="wfy-db-euE" secondAttribute="top" id="hh0-d6-TRy"/>
-                            <constraint firstItem="Vf8-SU-Zzh" firstAttribute="trailing" secondItem="tcT-Em-ItC" secondAttribute="trailing" id="jyJ-Jp-jMT"/>
-                            <constraint firstItem="Vf8-SU-Zzh" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" constant="243" id="mXW-Vg-MMR"/>
                             <constraint firstItem="tcT-Em-ItC" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="sES-kh-A8b"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="barChartView" destination="tcT-Em-ItC" id="Wz0-UN-hDW"/>
-                        <outlet property="lineChartView" destination="62J-ge-RVt" id="1YQ-4a-6EX"/>
-                        <outlet property="pieChartView" destination="Vf8-SU-Zzh" id="5iZ-V1-9aC"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

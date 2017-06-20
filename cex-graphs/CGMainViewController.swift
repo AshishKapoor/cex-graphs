@@ -14,7 +14,6 @@ class CGMainViewController: UIViewController, ChartViewDelegate {
    
     @IBOutlet weak var barChartView: BarChartView!
     @IBOutlet weak var lineChartView: LineChartView!
-    @IBOutlet weak var pieChartView: PieChartView!
 
     var months: [String]! // TODO: - to be removed
     var priceStats: CGPriceStats?
@@ -35,8 +34,8 @@ class CGMainViewController: UIViewController, ChartViewDelegate {
     func loadData() {
         
         let parameters: JSONDictionary = [
-            priceStatsParam.lastHours.rawValue: "24",
-            priceStatsParam.maxRespArrSize.rawValue: 100
+            priceStatsParam.lastHours.rawValue: "24", // TODO:- Remove hardcoded values
+            priceStatsParam.maxRespArrSize.rawValue: 100 // TODO:- Remove hardcoded values
         ]
         
         Alamofire.request(priceStatsURL, method: .post, parameters: parameters, encoding: JSONEncoding.default)
@@ -84,38 +83,12 @@ class CGMainViewController: UIViewController, ChartViewDelegate {
         }
         
         let chartDataSet = BarChartDataSet(values: dataEntries, label: "Units Sold")
-        chartDataSet.colors = [UIColor(red: 230/255, green: 126/255, blue: 34/255, alpha: 1)]
+        chartDataSet.colors = barChartColor
 //        chartDataSet.colors = ChartColorTemplates.liberty()
+        
         setupBarView(chartDataSet: chartDataSet)
         
-        let pieChartDataSet = PieChartDataSet(values: dataEntries, label: "Units Sold")
-        let pieChartData = PieChartData(dataSet: pieChartDataSet)
-        pieChartView.data = pieChartData
-        
-        // Colorify the Pie Chart
-        setupPieChartColors(dataPoints: dataPoints,dataSet: pieChartDataSet)
-        
-        let lineChartDataSet = LineChartDataSet(values: dataEntries, label: "Units Sold")
-        let lineChartData = LineChartData(dataSet: lineChartDataSet)
-        lineChartView.data = lineChartData
-        
         setColorToAxis()
-    }
-    
-    func setupPieChartColors(dataPoints: [String], dataSet: PieChartDataSet) -> Void {
-        
-        var colors: [UIColor] = []
-        
-        for _ in 0..<dataPoints.count {
-            let red = Double(arc4random_uniform(256))
-            let green = Double(arc4random_uniform(256))
-            let blue = Double(arc4random_uniform(256))
-
-            let color = UIColor(red: CGFloat(red/255), green: CGFloat(green/255), blue: CGFloat(blue/255), alpha: 1)
-            colors.append(color)
-        }
-
-        dataSet.colors = colors
     }
     
     func setupBarView (chartDataSet: BarChartDataSet) -> Void {
