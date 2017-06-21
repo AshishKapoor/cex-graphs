@@ -3,7 +3,7 @@ An iOS Application to consume cex.io/rest-api and display information on charts 
 
 Live Bar Graph from CEX.IO 🕶|  
 :-------------------------:
-<img src="https://github.com/AshishKapoor/cex-graphs/blob/master/assets/screenshots/barGraph.PNG" alt="Drawing" width="140" height="280"/>  
+<img src="https://github.com/AshishKapoor/cex-graphs/blob/master/assets/screenshots/lineChart.PNG" alt="Drawing" width="140" height="280"/>  
 
 Currency Limit from CEX.IO 🕶|  
 :-------------------------:
