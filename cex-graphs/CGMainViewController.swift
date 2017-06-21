@@ -11,8 +11,8 @@ import Charts
 import Alamofire
 
 class CGMainViewController: UIViewController, ChartViewDelegate {
-   
-    @IBOutlet weak var barChartView: BarChartView!
+    
+    @IBOutlet weak var lineChartView: LineChartView!
     
     var priceStats: CGPriceStats?
 
@@ -25,9 +25,9 @@ class CGMainViewController: UIViewController, ChartViewDelegate {
         super.viewDidLoad()
         title = "Currency Charts"
         
-        barChartView.delegate = self
+        lineChartView.delegate = self
         
-        barChartView.layerGradient()
+        lineChartView.layerGradient()
         
         loadData()
     }
@@ -78,15 +78,15 @@ class CGMainViewController: UIViewController, ChartViewDelegate {
     }
     
     func addXValuesToBarChartView(time: [String]) {
-        barChartView.xAxis.labelCount = time.count
-        barChartView.xAxis.labelTextColor = UIColor.black
-        barChartView.xAxis.valueFormatter = DefaultAxisValueFormatter {
-            (value, axis) -> String in return self.priceStatsTimeStampArray[Int(value)]
-        }
+        lineChartView.xAxis.labelCount = time.count
+        lineChartView.xAxis.labelTextColor = UIColor.black
+//        lineChartView.xAxis.valueFormatter = DefaultAxisValueFormatter {
+//            (value, axis) -> String in return self.priceStatsTimeStampArray[Int(value)]
+//        }
     }
     
     func setChart(dataPoints: [String], values: [Double]) {
-        barChartView.noDataText = "You need to provide data for the chart."
+        lineChartView.noDataText = "You need to provide data for the chart."
         var dataEntries: [BarChartDataEntry] = []
         
         for i in 0..<dataPoints.count {
@@ -97,22 +97,11 @@ class CGMainViewController: UIViewController, ChartViewDelegate {
 //        chartDataSet.colors = ChartColorTemplates.colorful()
         chartDataSet.colors = [UIColor.barGraphChartColor()]
         
-        setupBarView(chartDataSet: chartDataSet)
-    }
-    
-    func setupBarView (chartDataSet: BarChartDataSet) -> Void {
-        barChartView.chartDescription?.text = "Some relevant information with chart description."
-        
-        let chartData = BarChartData(dataSet: chartDataSet)
-        barChartView.data = chartData
-        barChartView.chartDescription?.text = ""
-        barChartView.xAxis.labelPosition = .bottomInside
-        barChartView.backgroundColor = UIColor.barGraphBackColor()
-        barChartView.animate(xAxisDuration: 2.0, yAxisDuration: 2.0)
-        
-        let limitLine = ChartLimitLine(limit: 400.0, label: "Target") // TODO: - Remove hardcoded target
-        barChartView.rightAxis.addLimitLine(limitLine)
-    }
+        let lineChartDataSet = LineChartDataSet(values: dataEntries, label: "ETH - USD conversion")
+        lineChartDataSet.colors = ChartColorTemplates.colorful()
+        let lineChartData = LineChartData(dataSet: lineChartDataSet)
+        lineChartView.data = lineChartData
+}
     
     func chartValueSelected(_ chartView: ChartViewBase, entry: ChartDataEntry, highlight: Highlight) {
         print("Entry X: \(entry.x)")
