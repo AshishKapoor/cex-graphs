@@ -89,8 +89,8 @@ class CGMainViewController: UIViewController, ChartViewDelegate {
         lineChartView.noDataText = "You need to provide data for the chart."
         var dataEntries: [BarChartDataEntry] = []
         
-        for i in 0..<dataPoints.count {
-            let dataEntry = BarChartDataEntry(x: Double(i), yValues: [values[i]])
+        for points in 0..<dataPoints.count {
+            let dataEntry = BarChartDataEntry(x: Double(points), yValues: [values[points]])
             dataEntries.append(dataEntry)
         }
         let chartDataSet = BarChartDataSet(values: dataEntries, label: "ETH - USD conversion")
